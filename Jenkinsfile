@@ -1,0 +1,31 @@
+pipeline{
+
+    agent any
+
+    options{
+        ansiColor('xTerm')
+    }
+    stages{
+        stage('Build'){
+            steps{
+                echo "build the Docker Image"
+            }
+        }
+        stage('Test'){
+            steps{
+                echo "Test!!"
+            }
+        }
+        stage('Deploy to Kubernetes'){
+            steps{
+                echo "deploy stuff"
+            }
+        }
+    }
+
+    post{
+        always{
+            publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: true, reportDir: 'cypress/report', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: ''])
+        }
+    }
+}

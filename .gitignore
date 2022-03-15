@@ -1,3 +1,4 @@
 prep
 jenkins_mount
-pwa-react
+pwa-react/node_modules
+pwa-react/.gitignore
