@@ -1,0 +1,46 @@
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: cr-formular-new-dev
+spec:
+  selector:
+    matchLabels:
+      app: cr-formular-new-dev
+  replicas: 1 # tells deployment to run 1 pod matching the template
+  template:
+    metadata:
+      labels:
+        app: cr-formular-new-dev
+    spec:
+      containers:
+        - name: cr-formular-new-dev
+          # the image name must be changed to the name from the deploy stage
+          # for example mtr.external.otc.telekomcloud.com/caas_dtit/my-nginx
+          image: mtr.external.otc.telekomcloud.com/rbdiwi/cr-formular-new
+          env:
+          - name: PHP_PROFILES_ACTIVE
+            value: "dev"
+          imagePullPolicy: "Always"
+          resources: {}
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities: {}
+            privileged: false
+            readOnlyRootFilesystem: false # Maybe necessary to change to 'true'
+            runAsNonRoot: true
+            runAsUser: 33
+          volumeMounts:
+            - mountPath: /tmp
+              name: tmp-volume
+      imagePullSecrets:
+        - name: mtr
+      securityContext:
+        fsGroup: 33
+      volumes:
+        - emptyDir: {}
+          name: tmp-volume
+  strategy:
+    type: RollingUpdate

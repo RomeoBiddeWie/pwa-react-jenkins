@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: cr-formular-new-lb-dev
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: "100m"
+spec:
+  rules:
+    - host: change-dev.caas-t01.telekom.de
+      http:
+        paths:
+          - backend:
+              serviceName: cr-formular-new-dev
+              servicePort: 8080
+  tls:
+    - hosts:
+        - change-dev.caas-t01.telekom.de
