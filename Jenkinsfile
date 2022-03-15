@@ -14,6 +14,8 @@ pipeline{
         stage('Test'){
             steps{
                 echo "Test!!"
+                sh "npm install"
+                echo "Installation done"
             }
         }
         stage('Deploy to Kubernetes'){
