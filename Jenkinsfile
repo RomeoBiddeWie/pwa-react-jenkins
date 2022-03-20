@@ -11,6 +11,7 @@ pipeline{
             steps{
                 echo "Test!!"
                 bat "npm install"
+                bat "cypress run"
                 echo "Installation done"
             }
         }
