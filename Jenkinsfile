@@ -9,8 +9,6 @@ pipeline{
                 sh 'node --version'
             }
         }
-    }
-    stages{
         stage('Build'){
             steps{
                 echo "build the Docker Image"
